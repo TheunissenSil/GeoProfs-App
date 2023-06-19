@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Microsoft.AspNetCore.Identity
+@using GeoProfs_App.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    <div class="main_content_active row">
+        <h1 class="display-4 col-md-12">Welkom</h1>
+        <h2>Verlofsaldo: @user.verlofsaldo</h2>
+    </div>
+}
+else
+{
+    <div class="image_box">
+        <div class="blur"></div>
+    </div>
+    <div class="main_content row">
+        <h1 class="display-4 col-md-12">Welkom</h1>
+        <div class="login_box row">
+            <p class="col-md-12">Klik hier om in te loggen met je GeoProfs account.</p>
+            <a class="col-md-4 login_button text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+            <p class="col-md-12">Nog geen GeoProfs account? <a class="nav-link register" id="register" asp-area="Identity" asp-page="/Account/Register">Klik hier</a></p>
+        </div>
+    </div>
+}
