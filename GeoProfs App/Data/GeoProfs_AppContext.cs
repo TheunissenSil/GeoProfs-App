@@ -14,5 +14,7 @@ namespace GeoProfs_App.Data
             : base(options)
         {
         }
+
+        public DbSet<Verlofaanvraag> Verlofaanvragen { get; set; }
     }
 }

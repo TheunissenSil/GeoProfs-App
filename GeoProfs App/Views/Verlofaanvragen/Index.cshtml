@@ -1,0 +1,120 @@
+﻿@model GeoProfs_App.Models.VerlofaanvraagViewModel;
+@{
+    ViewData["Title"] = "Verlofaanvraag";
+}
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+<form method="post" action="Verlofaanvragen/Add">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Reden:</label>
+        <select class="form-select" asp-for="Verlofaanvraag.Reason" id="reden">
+            <option value="Ziek">Ziek</option>
+            <option selected value="Vakantie">Vakantie</option>
+            <option value="Anders">Anders</option>
+        </select>
+    </div>
+    <div id="andersDiv" class="mb-3">
+        <label for="anders" class="form-label">Anders</label>
+        <input type="text" class="form-control" id="anders" asp-for="Verlofaanvraag.DifffrentReason" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3" id="datumDiv">
+        <label for="startVerlof" class="form-label">Start verlof:</label>
+        <input type="date" class="form-control" id="startVerlof" asp-for="Verlofaanvraag.StartDate" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3" id="datumDiv2">
+        <label for="eindeVerlof" class="form-label">Einde verlof:</label>
+        <input type="date" class="form-control" id="eindeVerlof" asp-for="Verlofaanvraag.EndDate" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Reden</th>
+            <th>Start datum</th>
+            <th>Eind datum</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verlofaanvraag in Model.Verlofaanvragen)
+        {
+            var user = await UserManager.GetUserAsync(User);
+            @if (verlofaanvraag.UserId == user.Id)  
+            {
+                <tr>
+                    @if (verlofaanvraag.Reason == "Anders")
+                    {
+                        <td>@verlofaanvraag.DifffrentReason</td>
+                    }
+                    else
+                    {
+                        <td>@verlofaanvraag.Reason</td>
+                    }
+                    <td>@verlofaanvraag.StartDate.ToString("dd-MM-yyyyy")</td>
+                    @if (verlofaanvraag.Reason == "Ziek")
+                    {
+                        <td>Onbekend</td>
+                    }
+                    else
+                    {
+                        <td>@verlofaanvraag.EndDate.ToString("dd-MM-yyyyy")</td>
+                    }
+                    <td>@verlofaanvraag.Status</td>
+                    <td>
+                        <form method="post" action="Verlofaanvragen/Delete/@verlofaanvraag.Id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    var redenDropdown = document.getElementById("reden");
+    var andersDiv = document.getElementById("andersDiv");
+    var datumDiv = document.getElementById("datumDiv");
+    var datumDiv2 = document.getElementById("datumDiv2");
+    var startVerlof = document.getElementById("startVerlof");
+    var eindeVerlof = document.getElementById("eindeVerlof");
+
+    andersDiv.style.display = "none";
+
+    // Get date
+    const date = new Date();
+    let currentDay = String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth() + 1).padStart(2, "0");
+    let currentYear = date.getFullYear();
+    let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+
+    let nextYear = currentYear + 1;
+    let nextYearDate = `${nextYear}-${currentMonth}-${currentDay}`;
+
+    startVerlof.setAttribute('value', currentDate);
+    eindeVerlof.setAttribute('value', currentDate);
+
+    redenDropdown.addEventListener("change", function () {
+        if (redenDropdown.value === "Anders") {
+            andersDiv.style.display = "block";
+        } else {
+            andersDiv.style.display = "none";
+        }
+
+        if (redenDropdown.value === "Ziek") {
+            datumDiv.style.display = "none";
+            datumDiv2.style.display = "none";
+
+            eindeVerlof.setAttribute('value', nextYearDate);
+        } else {
+            datumDiv.style.display = "block";
+            datumDiv2.style.display = "block";
+        }
+    });
+</script>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\Leerjaar 2\\C#\\GeoProfs App\\GeoProfs App\\GeoProfs App.csproj": {}
+    "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\C#\\GeoProfs-App\\GeoProfs App\\GeoProfs App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\Leerjaar 2\\C#\\GeoProfs App\\GeoProfs App\\GeoProfs App.csproj": {
+    "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\C#\\GeoProfs-App\\GeoProfs App\\GeoProfs App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\Leerjaar 2\\C#\\GeoProfs App\\GeoProfs App\\GeoProfs App.csproj",
+        "projectUniqueName": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\C#\\GeoProfs-App\\GeoProfs App\\GeoProfs App.csproj",
         "projectName": "GeoProfs App",
-        "projectPath": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\Leerjaar 2\\C#\\GeoProfs App\\GeoProfs App\\GeoProfs App.csproj",
+        "projectPath": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\C#\\GeoProfs-App\\GeoProfs App\\GeoProfs App.csproj",
         "packagesPath": "C:\\Users\\theun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\Leerjaar 2\\C#\\GeoProfs App\\GeoProfs App\\obj\\",
+        "outputPath": "C:\\Users\\theun\\OneDrive - ROC Nijmegen\\Documenten\\ROC\\C#\\GeoProfs-App\\GeoProfs App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\theun\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[7.0.6, )"
+              "version": "[7.0.7, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
