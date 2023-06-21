@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace GeoProfs_App.Controllers
 {
+    // Moet ingelogd zijn
     [Authorize]
     public class VerlofaanvragenController : Controller
     {
@@ -21,12 +22,13 @@ namespace GeoProfs_App.Controllers
             this.mvcGeoProfs_AppContext = mvcGeoProfs_AppContext;
         }
 
+        // Lijst van verlofaanvragen en view retun
         [HttpGet]
         public IActionResult Index()
         {
             var viewModel = new VerlofaanvraagViewModel
             {
-                Verlofaanvragen = mvcGeoProfs_AppContext.Verlofaanvragen.ToList(),
+                Verlofaanvragen = mvcGeoProfs_AppContext.Verlofaanvragen.OrderBy(v => v.StartDate).ToList(),
                 Verlofaanvraag = new Verlofaanvraag()
             };
 
@@ -34,21 +36,55 @@ namespace GeoProfs_App.Controllers
         }
 
         [HttpPost]
-        // Create
         public async Task<IActionResult> Add(VerlofaanvraagViewModel viewModel)
         {
+            // Check if userId exists
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
                 return RedirectToAction("Index");
             }
 
+            // Kijk of de user genoeg verlofsaldo heeft
+            if (viewModel.Verlofaanvraag.Reason != "Ziek")
+            {
+                // Get user
+                var user = await _userManager.FindByIdAsync(userId);
+                var verlofsaldo = user.verlofsaldo;
+
+                // Bereken de datums
+                var startDate = viewModel.Verlofaanvraag.StartDate.Date;
+                var endDate = viewModel.Verlofaanvraag.EndDate.Date;
+                var duration = (int)(endDate - startDate).TotalDays + 1;
+
+                // Kijk of verlofsaldo genoeg is
+                if (verlofsaldo < duration)
+                {
+                    ModelState.AddModelError("", "Je hebt niet genoeg verlofsaldo.");
+                    var updatedViewModel = new VerlofaanvraagViewModel
+                    {
+                        Verlofaanvragen = mvcGeoProfs_AppContext.Verlofaanvragen.OrderBy(v => v.StartDate).ToList(),
+                        Verlofaanvraag = viewModel.Verlofaanvraag
+                    };
+                    return View("Index", updatedViewModel);
+                }
+            }
+
+            // Check if there is a different reason filled in
             var diffrentReason = viewModel.Verlofaanvraag.DifffrentReason;
             if (diffrentReason == null)
             {
                 diffrentReason = "null";
             }
 
+            // Check if the user is "ziek"
+            var status = "pending";
+            if (viewModel.Verlofaanvraag.Reason == "Ziek")
+            {
+                status = "ziek";
+            }
+
+            // Create a new verlofaanvraag
             var verlofaanvraag = new Verlofaanvraag()
             {
                 Id = Guid.NewGuid(),
@@ -57,24 +93,27 @@ namespace GeoProfs_App.Controllers
                 DifffrentReason = diffrentReason,
                 StartDate = viewModel.Verlofaanvraag.StartDate,
                 EndDate = viewModel.Verlofaanvraag.EndDate,
-                Status = "pending",
+                Status = status,
             };
 
+            // Gooi in de database
             await mvcGeoProfs_AppContext.Verlofaanvragen.AddAsync(verlofaanvraag);
             await mvcGeoProfs_AppContext.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 
         // Delete
         public async Task<IActionResult> Delete(Guid id)
         {
+            // Check of verlofaanvraag bestaat
             var verlofaanvraag = await mvcGeoProfs_AppContext.Verlofaanvragen.FindAsync(id);
             if (verlofaanvraag == null)
             {
-                // Verlofaanvraag not found
                 return NotFound();
             }
 
+            // Verwijder verlofaanvraag
             mvcGeoProfs_AppContext.Verlofaanvragen.Remove(verlofaanvraag);
             await mvcGeoProfs_AppContext.SaveChangesAsync();
 
