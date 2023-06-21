@@ -72,10 +72,13 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVybG9mYWFudnJhZ2VuXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< Updated upstream
 [C:/Users/julia/OneDrive/Bureaublad/Documents/school/Leerjaar 2/C\#/GeoProfs-App/GeoProfs App/Views/Verlofschema/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVybG9mc2NoZW1hXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+=======
+>>>>>>> Stashed changes
 [C:/Users/julia/OneDrive/Bureaublad/Documents/school/Leerjaar 2/C\#/GeoProfs-App/GeoProfs App/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
