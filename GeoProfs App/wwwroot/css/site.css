@@ -1,13 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
-
-/*------SIL TESTEN HAAL WEG!!!------*/
-.row {
-    display: flex;
-    flex-direction: column;
-}
-/*------SIL TESTEN HAAL WEG!!!------*/
 
 body {
     background-color: #3E474B !important;
@@ -29,7 +22,6 @@ html {
 }
 
 .container_main {
-    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,12 +29,12 @@ html {
     background-color: #3E474B;
 }
 
-    .container_main .main {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
+.container_main .main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .border-top {
     width: 50%;
@@ -184,11 +176,11 @@ header {
     color: white;
 }
 
-    .container_main .main_content_login .login_form {
-        justify-content: space-evenly;
-        align-items: center;
-        width: 500px;
-    }
+.container_main .main_content_login .login_form {
+    justify-content: space-evenly;
+    align-items: center;
+    width: 500px;
+}
 
         .container_main .main_content_login .login_form form h2 {
             text-align: center;
@@ -198,7 +190,7 @@ header {
     color: #212529
 }
 
-/*------VERLOFSCHEMA------*/
+    /*------VERLOFSCHEMA------*/
 
 .container_main .main_content_verlofschema {
     height: 600px;
@@ -208,67 +200,98 @@ header {
     box-shadow: 0 0 50px #ccc;
 }
 
-    .container_main .main_content_verlofschema .schema-top {
-        height: 20%;
-        border-top: 1px solid #FEF3EC;
-        border-right: 1px solid #FEF3EC;
-        border-left: 1px solid #FEF3EC;
-    }
+.container_main .main_content_verlofschema .schema-top {
+    height: 20%;
+    border-top: 1px solid #FEF3EC;
+    border-right: 1px solid #FEF3EC;
+    border-left: 1px solid #FEF3EC;
+}
 
-    .container_main .main_content_verlofschema .schema-top-top {
-        height: 69.8%;
-    }
+.container_main .main_content_verlofschema .schema-top-top {
+    height: 69.8%;
+}
 
-    .container_main .main_content_verlofschema .schema-top-bottom {
-        height: 30.2%;
-    }
+.container_main .main_content_verlofschema .schema-top-bottom {
+    height: 30.2%;
+}
 
-    .container_main .main_content_verlofschema .schema-top .schema-top-item {
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
+.container_main .main_content_verlofschema .schema-top .schema-top-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
 
-    .container_main .main_content_verlofschema .schema-top .months-row .schema-date {
-        border-top: 1px solid #FEF3EC;
-    }
+.container_main .main_content_verlofschema .schema-top .months-row .schema-date {
+    border-top: 1px solid #FEF3EC;
+}
 
-    .container_main .main_content_verlofschema .end {
-        border-right: 1px solid #FEF3EC;
-    }
+.container_main .main_content_verlofschema .end {
+    border-right: 1px solid #FEF3EC;
+}
 
-    .container_main .main_content_verlofschema .schema-date {
-        width: 3.2%;
-        height: 100%;
-        border-left: 1px solid #FEF3EC;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.container_main .main_content_verlofschema .schema-date {
+    width: 3.2%;
+    height: 100%;
+    border-left: 1px solid #FEF3EC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .container_main .main_content_verlofschema .schema-bottom {
-        height: 80%;
-        border: 1px solid #FEF3EC;
-    }
+.container_main .main_content_verlofschema .schema-bottom {
+    height: 80%;
+    border: 1px solid #FEF3EC;
+}
 
-    .container_main .main_content_verlofschema .schema-user {
-        height: 8%;
-    }
+.container_main .main_content_verlofschema .schema-user {
+    height: 8%;
+}
 
-    .container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
-        height: 100%;
-        border-bottom: 1px solid #FEF3EC;
-        display: flex;
-    }
+.container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
+    height: 100%;
+    border-bottom: 1px solid #FEF3EC;
+    display: flex;
+}
 
-    .off-day {
-        background-color: red;
-    }
+.off-day {
+    background-color: red;
+}
 
-    .sick-day {
-        background-color: orange;
-    }
+.sick-day {
+    background-color: orange;
+}
 
-    .no-verlofaanvraag {
-        background-color: green;
-    }
+.no-verlofaanvraag {
+    background-color: green;
+}
+
+/*------VERLOFAANVRAGEN------*/
+
+.container_main .main_content_verlofaanvragen {
+    width: 80%;
+    background-color: #212529;
+    padding: 30px;
+    box-shadow: 0 0 50px #ccc;
+    border: 1px solid #FEF3EC;
+}
+
+.container_main .main_content_verlofaanvragen.title {
+    margin: 50px;
+    width: 30%;
+    text-align: center;
+}
+
+.container_main .main_content_verlofaanvragen .verlofaanvragen-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px
+}
+
+.container_main .main_content_verlofaanvragen .verlofaanvragen-info table th, .container_main .main_content_verlofaanvragen .verlofaanvragen-info table td {
+    padding: 10px;
+    border-bottom: 1px solid #FEF3EC
+}
+
+.container_main .main_content_verlofaanvragen .verlofaanvragen-info .toekomstige-verlof {
+    margin: 20px 0px;
+}

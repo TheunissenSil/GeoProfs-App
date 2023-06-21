@@ -8,135 +8,154 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="row">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        var user = await UserManager.GetUserAsync(User);
-        <h1>Verlofsaldo: @user.verlofsaldo</h1>
-    }
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <form id="verlofaanvraagForm" method="post" action="Verlofaanvragen/Add">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Reden:</label>
-            <select class="form-select" asp-for="Verlofaanvraag.Reason" id="reden">
-                <option value="Ziek">Ziek</option>
-                <option selected value="Vakantie">Vakantie</option>
-                <option value="Anders">Anders</option>
-            </select>
-        </div>
-        <div id="andersDiv" class="mb-3">
-            <label for="anders" class="form-label">Anders</label>
-            <input type="text" class="form-control" id="anders" asp-for="Verlofaanvraag.DifffrentReason" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3" id="datumDiv">
-            <label for="startVerlof" class="form-label">Start verlof:</label>
-            <input type="date" class="form-control" id="startVerlof" asp-for="Verlofaanvraag.StartDate" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3" id="datumDiv2">
-            <label for="eindeVerlof" class="form-label">Einde verlof:</label>
-            <input type="date" class="form-control" id="eindeVerlof" asp-for="Verlofaanvraag.EndDate" aria-describedby="emailHelp">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<div class="main_content_verlofaanvragen title">
+    <h1>Verlof Aanvragen</h1>
+</div>
 
+<div class="main_content_verlofaanvragen">
+    <div class="row">
+        <div class="col-md-5"><h2>Aanvragen</h2></div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var user = await UserManager.GetUserAsync(User);
+            <div class="col-md-7">
+                <h2>Verlofsaldo: @user.verlofsaldo</h2>
+            </div>
+        } else
+        {
+            <div class="col-md-7">
+                <h2>Log in om uw verlofsaldo te zien</h2>
+            </div>
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form class="col-md-5" id="verlofaanvraagForm" method="post" action="Verlofaanvragen/Add">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Reden:</label>
+                <select class="form-select" asp-for="Verlofaanvraag.Reason" id="reden">
+                    <option value="Ziek">Ziek</option>
+                    <option selected value="Vakantie">Vakantie</option>
+                    <option value="Anders">Anders</option>
+                </select>
+            </div>
+            <div id="andersDiv" class="mb-3">
+                <label for="anders" class="form-label">Anders</label>
+                <input type="text" class="form-control" id="anders" asp-for="Verlofaanvraag.DifffrentReason" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3" id="datumDiv">
+                <label for="startVerlof" class="form-label">Start verlof:</label>
+                <input type="date" class="form-control" id="startVerlof" asp-for="Verlofaanvraag.StartDate" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3" id="datumDiv2">
+                <label for="eindeVerlof" class="form-label">Einde verlof:</label>
+                <input type="date" class="form-control" id="eindeVerlof" asp-for="Verlofaanvraag.EndDate" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Versturen</button>
+        </form>
 
-    <h2>Actieve Verlofaanvragen</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Reden</th>
-                <th>Start datum</th>
-                <th>Eind datum</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var verlofaanvraag in Model.Verlofaanvragen)
-            {
-                var user = await UserManager.GetUserAsync(User);
-                var currentDate = DateTime.Now.Date;
-                var begindate = verlofaanvraag.StartDate.Date;
-                @if (verlofaanvraag.UserId == user.Id && currentDate >= begindate && verlofaanvraag.Status != "Rejected")
-                {
-                    <tr>
-                        @if (verlofaanvraag.Reason == "Anders")
+        <div class="verlofaanvragen-info col-md-7">
+            <div class="toekomstige-verlof">
+                <h2>Actieve Verlofaanvragen</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reden</th>
+                            <th>Start datum</th>
+                            <th>Eind datum</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var verlofaanvraag in Model.Verlofaanvragen)
                         {
-                            <td>@verlofaanvraag.DifffrentReason</td>
+                            var user = await UserManager.GetUserAsync(User);
+                            var currentDate = DateTime.Now.Date;
+                            var begindate = verlofaanvraag.StartDate.Date;
+                            @if (verlofaanvraag.UserId == user.Id && currentDate >= begindate && verlofaanvraag.Status != "Rejected")
+                            {
+                                <tr>
+                                    @if (verlofaanvraag.Reason == "Anders")
+                                    {
+                                        <td>@verlofaanvraag.DifffrentReason</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@verlofaanvraag.Reason</td>
+                                    }
+                                    <td>@verlofaanvraag.StartDate.ToString("dd-MM-yyyyy")</td>
+                                    @if (verlofaanvraag.Reason == "Ziek")
+                                    {
+                                        <td>Onbekend</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@verlofaanvraag.EndDate.ToString("dd-MM-yyyyy")</td>
+                                    }
+                                    <td>@verlofaanvraag.Status</td>
+                                    <td>
+                                        <form method="post" action="Verlofaanvragen/Delete/@verlofaanvraag.Id">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
-                        else
-                        {
-                            <td>@verlofaanvraag.Reason</td>
-                        }
-                        <td>@verlofaanvraag.StartDate.ToString("dd-MM-yyyyy")</td>
-                        @if (verlofaanvraag.Reason == "Ziek")
-                        {
-                            <td>Onbekend</td>
-                        }
-                        else
-                        {
-                            <td>@verlofaanvraag.EndDate.ToString("dd-MM-yyyyy")</td>
-                        }
-                        <td>@verlofaanvraag.Status</td>
-                        <td>
-                            <form method="post" action="Verlofaanvragen/Delete/@verlofaanvraag.Id">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+            </div>
 
-    <h2>Toekomstige Verlofaanvragen</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Reden</th>
-                <th>Start datum</th>
-                <th>Eind datum</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var verlofaanvraag in Model.Verlofaanvragen)
-            {
-                var user = await UserManager.GetUserAsync(User);
-                var currentDate = DateTime.Now.Date;
-                var begindate = verlofaanvraag.StartDate.Date;
-                @if (verlofaanvraag.UserId == user.Id && currentDate < begindate)
-                {
-                    <tr>
-                        @if (verlofaanvraag.Reason == "Anders")
+            <div class="toekomstige-verlof">
+                <h2>Toekomstige Verlofaanvragen</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reden</th>
+                            <th>Start datum</th>
+                            <th>Eind datum</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var verlofaanvraag in Model.Verlofaanvragen)
                         {
-                            <td>@verlofaanvraag.DifffrentReason</td>
+                            var user = await UserManager.GetUserAsync(User);
+                            var currentDate = DateTime.Now.Date;
+                            var begindate = verlofaanvraag.StartDate.Date;
+                            @if (verlofaanvraag.UserId == user.Id && currentDate < begindate)
+                            {
+                                <tr>
+                                    @if (verlofaanvraag.Reason == "Anders")
+                                    {
+                                        <td>@verlofaanvraag.DifffrentReason</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@verlofaanvraag.Reason</td>
+                                    }
+                                    <td>@verlofaanvraag.StartDate.ToString("dd-MM-yyyyy")</td>
+                                    @if (verlofaanvraag.Reason == "Ziek")
+                                    {
+                                        <td>Onbekend</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@verlofaanvraag.EndDate.ToString("dd-MM-yyyyy")</td>
+                                    }
+                                    <td>@verlofaanvraag.Status</td>
+                                    <td>
+                                        <form method="post" action="Verlofaanvragen/Delete/@verlofaanvraag.Id">
+                                            <button type="submit" class="btn btn-danger">Verwijderen</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
-                        else
-                        {
-                            <td>@verlofaanvraag.Reason</td>
-                        }
-                        <td>@verlofaanvraag.StartDate.ToString("dd-MM-yyyyy")</td>
-                        @if (verlofaanvraag.Reason == "Ziek")
-                        {
-                            <td>Onbekend</td>
-                        }
-                        else
-                        {
-                            <td>@verlofaanvraag.EndDate.ToString("dd-MM-yyyyy")</td>
-                        }
-                        <td>@verlofaanvraag.Status</td>
-                        <td>
-                            <form method="post" action="Verlofaanvragen/Delete/@verlofaanvraag.Id">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+             </div>
+        </div>
+    </div>
 </div>
 
 <script>
