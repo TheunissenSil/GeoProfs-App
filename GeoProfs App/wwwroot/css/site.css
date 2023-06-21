@@ -59,7 +59,7 @@ header nav {
     background-color: #3E474B !important;
 }
 
-header nav ul li a {
+header nav ul li a, header nav ul li button {
     color: white !important;
 }
 
@@ -83,6 +83,16 @@ header nav ul li a {
 
     /*------MAIN PAGE------*/
 
+.container_main {
+    color: white;
+}
+
+.main {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100%;
+}
+
 .container_main .main_content {
     row-gap: 50px;
     text-align: center;
@@ -98,9 +108,22 @@ header nav ul li a {
     margin-left: 0px;
 }
 
+.welkom_container {
+    display: flex;
+
+}
+
+.container_main .login_box {
+    color: #212529;
+}
+
+.container_main .main_content_active {
+    color: white;
+    text-align: center;
+}
+
 .container_main .image_box {
     width: 45%;
-    height: 357px;
     background-image: url('../img/office.jpg');
     background-position: center;
     background-size: cover;
@@ -151,6 +174,10 @@ header nav ul li a {
     flex-direction: column;
 }
 
+.container_main .main_content_login {
+    color: white;
+}
+
 .container_main .main_content_login .login_form {
     justify-content: space-evenly;
     align-items: center;
@@ -159,4 +186,71 @@ header nav ul li a {
 
 .container_main .main_content_login .login_form form h2 {
     text-align: center;
+}
+
+.form-floating .form-label, .form-floating label {
+    color: #212529
+}
+
+    /*------VERLOFSCHEMA------*/
+
+.container_main .main_content_verlofschema {
+    height: 600px;
+    align-content: start;
+    width: 80%;
+    background-color: #212529;
+    box-shadow: 0 0 50px #ccc;
+}
+
+.container_main .main_content_verlofschema .schema-top {
+    height: 20%;
+    border-top: 1px solid #FEF3EC;
+    border-right: 1px solid #FEF3EC;
+    border-left: 1px solid #FEF3EC;
+}
+
+.container_main .main_content_verlofschema .schema-top-top {
+    height: 69.8%;
+}
+
+.container_main .main_content_verlofschema .schema-top-bottom {
+    height: 30.2%;
+}
+
+.container_main .main_content_verlofschema .schema-top .schema-top-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.container_main .main_content_verlofschema .schema-top .months-row .schema-date {
+    border-top: 1px solid #FEF3EC;
+}
+
+.container_main .main_content_verlofschema .end {
+    border-right: 1px solid #FEF3EC;
+}
+
+.container_main .main_content_verlofschema .schema-date {
+    width: 3.2%;
+    height: 100%;
+    border-left: 1px solid #FEF3EC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_main .main_content_verlofschema .schema-bottom {
+    height: 80%;
+    border: 1px solid #FEF3EC;
+}
+
+.container_main .main_content_verlofschema .schema-user {
+    height: 8%;
+}
+
+.container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
+    height: 100%;
+    border-bottom: 1px solid #FEF3EC;
+    display: flex;
 }
