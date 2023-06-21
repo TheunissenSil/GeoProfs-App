@@ -1,0 +1,115 @@
+﻿@model GeoProfs_App.Models.VerlofaanvraagViewModel
+
+@{
+    ViewData["Title"] = "Verlofschema";
+}
+
+@using Microsoft.AspNetCore.Identity
+@using GeoProfs_App.Models
+@using System.Globalization;
+
+<div class="main_content_verlofschema row">
+    <div class="schema-top col-md-12">
+        <div class="schema-top-top row">
+            <div class="col-md-3 schema-top-item">
+            </div>
+            <div class="col-md-9 schema-top-item">
+                <form id="verlofschemaForm" asp-controller="Verlofschema" asp-action="Index" method="get">
+                    <label for="month">Maand:</label>
+                    <select id="month" name="month">
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <option value="@i" selected="@(Model.Verlofaanvraag.StartDate.Month == i ? "selected" : null)">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                        }
+                    </select>
+
+                    <label for="year">Jaar:</label>
+                    <select id="year" name="year">
+                        @for (int i = DateTime.Now.Year; i <= DateTime.Now.Year + 5; i++)
+                        {
+                            <option value="@i" selected="@(Model.Verlofaanvraag.StartDate.Year == i ? "selected" : null)">@i</option>
+                        }
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="schema-top-bottom row">
+            <div class="col-md-3 schema-top-item">
+                <strong>Users</strong>
+            </div>
+            <div class="col-md-9 schema-top-item months-row">
+                @for (int day = 1; day <= DateTime.DaysInMonth(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month); day++)
+                {
+                    <div class="schema-date">@day</div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="schema-bottom col-md-12">
+        @foreach (var user in Model.Users)
+        {
+            bool hasVerlofaanvraag;
+            var verlofaanvraag = Model.Verlofaanvragen.FirstOrDefault(v => v.User.Id == user.Id);
+            if (verlofaanvraag.UserId == null )
+            {
+                hasVerlofaanvraag = false;
+            } else
+            {
+                if (verlofaanvraag.Status == "pending")
+                {
+                    hasVerlofaanvraag = false;
+                }
+                else
+                {
+                    hasVerlofaanvraag = true;
+                }
+            }
+            
+            
+            <div class="row schema-user">
+                <div class="schema-left col-md-3">
+                    <strong>@user.UserName</strong>
+                </div>
+                <div class="schema-right col-md-9">
+                    @for (int day = 1; day <= DateTime.DaysInMonth(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month); day++)
+                    {
+                        DateTime date = new DateTime(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month, day);
+                        bool isLeaveDay = hasVerlofaanvraag && verlofaanvraag.StartDate.Date <= date && date <= verlofaanvraag.EndDate.Date;
+
+                        Console.WriteLine(hasVerlofaanvraag);
+
+                        if (isLeaveDay)
+                        {
+                            if (verlofaanvraag.Status == "Approved")
+                            {
+                                <div class="schema-date off-day"></div>
+                            }
+                            else if (verlofaanvraag.Status == "ziek")
+                            {
+                                <div class="schema-date sick-day"></div>
+                            }
+
+                        }
+                        else
+                        {
+                            <div class="schema-date"></div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Listen for changes in the year and month dropdowns
+        document.getElementById("year").addEventListener("change", updateForm);
+        document.getElementById("month").addEventListener("change", updateForm);
+
+        // Submit the form when a change occurs
+        function updateForm() {
+            document.getElementById("verlofschemaForm").submit();
+        }
+    </script>
+}

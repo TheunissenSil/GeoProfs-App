@@ -14,18 +14,18 @@ body {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 .container_main {
@@ -37,12 +37,12 @@ html {
     background-color: #3E474B;
 }
 
-.container_main .main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
+    .container_main .main {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
 .border-top {
     width: 50%;
@@ -52,7 +52,7 @@ html {
     width: 50%;
 }
 
-    /*------HEADER------*/
+/*------HEADER------*/
 
 header {
     display: flex;
@@ -61,20 +61,20 @@ header {
     flex-direction: column;
 }
 
-header nav {
-    width: 100%;
-    background-color: #3E474B !important;
-}
+    header nav {
+        width: 100%;
+        background-color: #3E474B !important;
+    }
 
-header nav ul li a {
-    color: white !important;
-}
+        header nav ul li a, header nav ul li button {
+            color: white !important;
+        }
 
 .navbar-brand img {
     width: 120px;
 }
 
-    /*------FOOTER------*/
+/*------FOOTER------*/
 
 .footer {
     display: flex;
@@ -83,12 +83,22 @@ header nav ul li a {
     flex-direction: column;
 }
 
-.footer .copyright {
-    margin-top: 10px;
+    .footer .copyright {
+        margin-top: 10px;
+        color: white;
+    }
+
+/*------MAIN PAGE------*/
+
+.container_main {
     color: white;
 }
 
-    /*------MAIN PAGE------*/
+.main {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100%;
+}
 
 .container_main .main_content {
     row-gap: 50px;
@@ -105,9 +115,21 @@ header nav ul li a {
     margin-left: 0px;
 }
 
+.welkom_container {
+    display: flex;
+}
+
+.container_main .login_box {
+    color: #212529;
+}
+
+.container_main .main_content_active {
+    color: white;
+    text-align: center;
+}
+
 .container_main .image_box {
     width: 45%;
-    height: 357px;
     background-image: url('../img/office.jpg');
     background-position: center;
     background-size: cover;
@@ -117,14 +139,14 @@ header nav ul li a {
     border-bottom-left-radius: 10px;
 }
 
-.container_main .image_box .blur {
-    backdrop-filter: blur(5px);
-    width: 100%;
-    height: 100%;
-    box-shadow: -10px 0 50px #ccc;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
+    .container_main .image_box .blur {
+        backdrop-filter: blur(5px);
+        width: 100%;
+        height: 100%;
+        box-shadow: -10px 0 50px #ccc;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
 
 .container_main .main_content .login_box {
     row-gap: 10px;
@@ -140,9 +162,9 @@ header nav ul li a {
     color: white !important;
 }
 
-.container_main .main_content .login_button:hover {
-    background-color: #3d4346;
-}
+    .container_main .main_content .login_button:hover {
+        background-color: #3d4346;
+    }
 
 .container_main .main_content .login_box .register {
     display: unset;
@@ -158,12 +180,95 @@ header nav ul li a {
     flex-direction: column;
 }
 
-.container_main .main_content_login .login_form {
-    justify-content: space-evenly;
-    align-items: center;
-    width: 500px;
+.container_main .main_content_login {
+    color: white;
 }
 
-.container_main .main_content_login .login_form form h2 {
-    text-align: center;
+    .container_main .main_content_login .login_form {
+        justify-content: space-evenly;
+        align-items: center;
+        width: 500px;
+    }
+
+        .container_main .main_content_login .login_form form h2 {
+            text-align: center;
+        }
+
+.form-floating .form-label, .form-floating label {
+    color: #212529
 }
+
+/*------VERLOFSCHEMA------*/
+
+.container_main .main_content_verlofschema {
+    height: 600px;
+    align-content: start;
+    width: 80%;
+    background-color: #212529;
+    box-shadow: 0 0 50px #ccc;
+}
+
+    .container_main .main_content_verlofschema .schema-top {
+        height: 20%;
+        border-top: 1px solid #FEF3EC;
+        border-right: 1px solid #FEF3EC;
+        border-left: 1px solid #FEF3EC;
+    }
+
+    .container_main .main_content_verlofschema .schema-top-top {
+        height: 69.8%;
+    }
+
+    .container_main .main_content_verlofschema .schema-top-bottom {
+        height: 30.2%;
+    }
+
+    .container_main .main_content_verlofschema .schema-top .schema-top-item {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .container_main .main_content_verlofschema .schema-top .months-row .schema-date {
+        border-top: 1px solid #FEF3EC;
+    }
+
+    .container_main .main_content_verlofschema .end {
+        border-right: 1px solid #FEF3EC;
+    }
+
+    .container_main .main_content_verlofschema .schema-date {
+        width: 3.2%;
+        height: 100%;
+        border-left: 1px solid #FEF3EC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container_main .main_content_verlofschema .schema-bottom {
+        height: 80%;
+        border: 1px solid #FEF3EC;
+    }
+
+    .container_main .main_content_verlofschema .schema-user {
+        height: 8%;
+    }
+
+    .container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
+        height: 100%;
+        border-bottom: 1px solid #FEF3EC;
+        display: flex;
+    }
+
+    .off-day {
+        background-color: red;
+    }
+
+    .sick-day {
+        background-color: orange;
+    }
+
+    .no-verlofaanvraag {
+        background-color: green;
+    }
