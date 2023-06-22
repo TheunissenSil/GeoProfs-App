@@ -22,6 +22,7 @@ html {
 }
 
 .container_main {
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,14 +54,14 @@ header {
     flex-direction: column;
 }
 
-    header nav {
-        width: 100%;
-        background-color: #3E474B !important;
-    }
+header nav {
+    width: 100%;
+    background-color: #3E474B !important;
+}
 
-        header nav ul li a, header nav ul li button {
-            color: white !important;
-        }
+header nav ul li a, header nav ul li button {
+    color: white !important;
+}
 
 .navbar-brand img {
     width: 120px;
@@ -75,10 +76,10 @@ header {
     flex-direction: column;
 }
 
-    .footer .copyright {
-        margin-top: 10px;
-        color: white;
-    }
+.footer .copyright {
+    margin-top: 10px;
+    color: white;
+}
 
 /*------MAIN PAGE------*/
 
@@ -126,19 +127,19 @@ header {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 125%;
+    height: 333px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
-    .container_main .image_box .blur {
-        backdrop-filter: blur(5px);
-        width: 100%;
-        height: 100%;
-        box-shadow: -10px 0 50px #ccc;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
+.container_main .image_box .blur {
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    box-shadow: -10px 0 50px #ccc;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
 
 .container_main .main_content .login_box {
     row-gap: 10px;
@@ -297,3 +298,12 @@ header {
 }
 
 /*------MANAGEMENT------*/
+
+.container_main .main_content_verlofaanvragen .row {
+    row-gap: 30px;
+}
+
+.container_main .main_content_verlofaanvragen .management-item table th, .container_main .main_content_verlofaanvragen .management-item table td {
+    padding: 10px;
+    border-bottom: 1px solid #FEF3EC
+}

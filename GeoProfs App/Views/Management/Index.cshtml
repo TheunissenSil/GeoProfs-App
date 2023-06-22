@@ -12,171 +12,176 @@
 
 <div class="main_content_verlofaanvragen">
     <div class="row">
-        <h2>Ziekmeldingen vandaag</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Reason</th>
-                    <th>Start Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var verlofaanvraag in Model)
-                {
-                    var currentDate = DateTime.Now.Date;
-                    var begindate = verlofaanvraag.StartDate.Date;
-                    if (verlofaanvraag.Status == "ziek" && begindate == currentDate)
+        <div class="management-item col-md-12">
+            <h2>Ziekmeldingen vandaag</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Reason</th>
+                        <th>Start Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var verlofaanvraag in Model)
                     {
-                        <tr>
-                            <td>
-                                @{
-                                    var userName = _dbContext.Users
-                                    .Where(u => u.Id == verlofaanvraag.UserId)
-                                    .Select(u => u.UserName)
-                                    .FirstOrDefault();
+                        var currentDate = DateTime.Now.Date;
+                        var begindate = verlofaanvraag.StartDate.Date;
+                        if (verlofaanvraag.Status == "ziek" && begindate == currentDate)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        var userName = _dbContext.Users
+                                        .Where(u => u.Id == verlofaanvraag.UserId)
+                                        .Select(u => u.UserName)
+                                        .FirstOrDefault();
+                                    }
+                                    @userName
+                                </td>
+                                @if (verlofaanvraag.Reason == "Anders")
+                                {
+                                    <td>@verlofaanvraag.DifffrentReason</td>
                                 }
-                                @userName
-                            </td>
-                            @if (verlofaanvraag.Reason == "Anders")
-                            {
-                                <td>@verlofaanvraag.DifffrentReason</td>
-                            }
-                            else
-                            {
-                                <td>@verlofaanvraag.Reason</td>
-                            }
-                            <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
-                        </tr>
+                                else
+                                {
+                                    <td>@verlofaanvraag.Reason</td>
+                                }
+                                <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        <div class="management-item col-md-12">
+            <h2>Pending Verlofaanvragen</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Reason</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var verlofaanvraag in Model)
+                    {
+                        if (verlofaanvraag.Status == "pending")
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        var userName = _dbContext.Users
+                                        .Where(u => u.Id == verlofaanvraag.UserId)
+                                        .Select(u => u.UserName)
+                                        .FirstOrDefault();
+                                    }
+                                    @userName
+                                </td>
+                                @if (verlofaanvraag.Reason == "Anders")
+                                {
+                                    <td>@verlofaanvraag.DifffrentReason</td>
+                                }
+                                else
+                                {
+                                    <td>@verlofaanvraag.Reason</td>
+                                }
+                                <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
+                                <td>@verlofaanvraag.EndDate.ToShortDateString()</td>
+                                <td>
+                                    <select name="status" onchange="updateStatus('@verlofaanvraag.Id', this.value)">
+                                        <option value="Pending" selected="@((verlofaanvraag.Status == "Pending") ? "selected" : null)">Pending</option>
+                                        <option value="Approved" selected="@((verlofaanvraag.Status == "Approved") ? "selected" : null)">Approved</option>
+                                        <option value="Rejected" selected="@((verlofaanvraag.Status == "Rejected") ? "selected" : null)">Rejected</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="management-item col-md-12">
+            <h2>Accepted Verlofaanvragen</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Reason</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var verlofaanvraag in Model)
+                    {
+                        if (verlofaanvraag.Status == "Approved" || verlofaanvraag.Status == "ziek")
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        var userName = _dbContext.Users
+                                        .Where(u => u.Id == verlofaanvraag.UserId)
+                                        .Select(u => u.UserName)
+                                        .FirstOrDefault();
+                                    }
+                                    @userName
+                                </td>
+                                @if (verlofaanvraag.Reason == "Anders")
+                                {
+                                    <td>@verlofaanvraag.DifffrentReason</td>
+                                }
+                                else
+                                {
+                                    <td>@verlofaanvraag.Reason</td>
+                                }
+                                <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
+                                <td>@verlofaanvraag.EndDate.ToShortDateString()</td>
+                                <td>@verlofaanvraag.Status</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="management-item col-md-12">
+            <h2>Manage Users</h2>
 
-        <h2>Pending Verlofaanvragen</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Reason</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var verlofaanvraag in Model)
-                {
-                    if (verlofaanvraag.Status == "pending")
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Verlofsaldo</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in ViewBag.Users)
                     {
                         <tr>
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                            <td><input type="text" value="@user.verlofsaldo" onchange="updateVerlofsaldo('@user.UserName', this.value)" /></td>
                             <td>
-                                @{
-                                    var userName = _dbContext.Users
-                                    .Where(u => u.Id == verlofaanvraag.UserId)
-                                    .Select(u => u.UserName)
-                                    .FirstOrDefault();
-                                }
-                                @userName
-                            </td>
-                            @if (verlofaanvraag.Reason == "Anders")
-                            {
-                                <td>@verlofaanvraag.DifffrentReason</td>
-                            }
-                            else
-                            {
-                                <td>@verlofaanvraag.Reason</td>
-                            }
-                            <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
-                            <td>@verlofaanvraag.EndDate.ToShortDateString()</td>
-                            <td>
-                                <select name="status" onchange="updateStatus('@verlofaanvraag.Id', this.value)">
-                                    <option value="Pending" selected="@((verlofaanvraag.Status == "Pending") ? "selected" : null)">Pending</option>
-                                    <option value="Approved" selected="@((verlofaanvraag.Status == "Approved") ? "selected" : null)">Approved</option>
-                                    <option value="Rejected" selected="@((verlofaanvraag.Status == "Rejected") ? "selected" : null)">Rejected</option>
+                                <select name="role" onchange="updateRole('@user.UserName', this.value)">
+                                    <option value="Employee" selected="@((user.Role == "Employee") ? "selected" : null)">Employee</option>
+                                    <option value="Manager" selected="@((user.Role == "Manager") ? "selected" : null)">Manager</option>
                                 </select>
                             </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-
-        <h2>Accepted Verlofaanvragen</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Reason</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var verlofaanvraag in Model)
-                {
-                    if (verlofaanvraag.Status == "Approved" || verlofaanvraag.Status == "ziek")
-                    {
-                        <tr>
                             <td>
-                                @{
-                                    var userName = _dbContext.Users
-                                    .Where(u => u.Id == verlofaanvraag.UserId)
-                                    .Select(u => u.UserName)
-                                    .FirstOrDefault();
-                                }
-                                @userName
+                                <button class="btn-danger btn" onclick="deleteUser('@user.UserName')">Delete</button>
                             </td>
-                            @if (verlofaanvraag.Reason == "Anders")
-                            {
-                                <td>@verlofaanvraag.DifffrentReason</td>
-                            }
-                            else
-                            {
-                                <td>@verlofaanvraag.Reason</td>
-                            }
-                            <td>@verlofaanvraag.StartDate.ToShortDateString()</td>
-                            <td>@verlofaanvraag.EndDate.ToShortDateString()</td>
-                            <td>@verlofaanvraag.Status</td>
                         </tr>
                     }
-                }
-            </tbody>
-        </table>
-
-        <h2>Manage Users</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Email</th>
-                    <th>Verlofsaldo</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in ViewBag.Users)
-                {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Email</td>
-                        <td><input type="text" value="@user.verlofsaldo" onchange="updateVerlofsaldo('@user.UserName', this.value)" /></td>
-                        <td>
-                            <select name="role" onchange="updateRole('@user.UserName', this.value)">
-                                <option value="Employee" selected="@((user.Role == "Employee") ? "selected" : null)">Employee</option>
-                                <option value="Manager" selected="@((user.Role == "Manager") ? "selected" : null)">Manager</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button onclick="deleteUser('@user.UserName')">Delete</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+          </div>
     </div>
 </div>
 
