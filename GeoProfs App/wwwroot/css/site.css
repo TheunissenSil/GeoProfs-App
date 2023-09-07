@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-color: #3E474B !important;
+    background-color: #2a2f30 !important;
 }
 
 @media (min-width: 768px) {
@@ -27,7 +27,7 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #3E474B;
+    background-color: #2a2f30;
 }
 
 .container_main .main {
@@ -54,10 +54,10 @@ header {
     flex-direction: column;
 }
 
-header nav {
-    width: 100%;
-    background-color: #3E474B !important;
-}
+    header nav {
+        width: 100%;
+        background-color: #2a2f30 !important;
+    }
 
 header nav ul li a, header nav ul li button {
     color: white !important;
