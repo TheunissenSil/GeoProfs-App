@@ -80,8 +80,6 @@
                         DateTime date = new DateTime(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month, day);
                         bool isLeaveDay = hasVerlofaanvraag && verlofaanvraag.StartDate.Date <= date && date <= verlofaanvraag.EndDate.Date;
 
-                        Console.WriteLine(hasVerlofaanvraag);
-
                         if (isLeaveDay)
                         {
                             if (verlofaanvraag.Status == "Approved")
