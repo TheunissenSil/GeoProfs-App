@@ -198,15 +198,15 @@ header nav ul li a, header nav ul li button {
     align-content: start;
     width: 80%;
     background-color: #212529;
-    box-shadow: 0 0 50px #ccc;
+    box-shadow: 0 0 10px #ccc;
 }
 
-.container_main .main_content_verlofschema .schema-top {
-    height: 20%;
-    border-top: 1px solid #FEF3EC;
-    border-right: 1px solid #FEF3EC;
-    border-left: 1px solid #FEF3EC;
-}
+    .container_main .main_content_verlofschema .schema-top {
+        height: 20%;
+        border-top: 1px solid #a19f9e;
+        border-right: 1px solid #a19f9e;
+        border-left: 1px solid #a19f9e;
+    }
 
 .container_main .main_content_verlofschema .schema-top-top {
     height: 69.8%;
@@ -222,37 +222,37 @@ header nav ul li a, header nav ul li button {
     align-items: center;
 }
 
-.container_main .main_content_verlofschema .schema-top .months-row .schema-date {
-    border-top: 1px solid #FEF3EC;
-}
+    .container_main .main_content_verlofschema .schema-top .months-row .schema-date {
+        border-top: 1px solid #a19f9e;
+    }
 
-.container_main .main_content_verlofschema .end {
-    border-right: 1px solid #FEF3EC;
-}
+    .container_main .main_content_verlofschema .end {
+        border-right: 1px solid #a19f9e;
+    }
 
-.container_main .main_content_verlofschema .schema-date {
-    width: 3.2%;
-    height: 100%;
-    border-left: 1px solid #FEF3EC;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .container_main .main_content_verlofschema .schema-date {
+        width: 3.2%;
+        height: 100%;
+        border-left: 1px solid #a19f9e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.container_main .main_content_verlofschema .schema-bottom {
-    height: 80%;
-    border: 1px solid #FEF3EC;
-}
+    .container_main .main_content_verlofschema .schema-bottom {
+        height: 80%;
+        border: 1px solid #a19f9e;
+    }
 
 .container_main .main_content_verlofschema .schema-user {
     height: 8%;
 }
 
-.container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
-    height: 100%;
-    border-bottom: 1px solid #FEF3EC;
-    display: flex;
-}
+    .container_main .main_content_verlofschema .schema-left, .container_main .main_content_verlofschema .schema-right {
+        height: 100%;
+        border-bottom: 1px solid #a19f9e;
+        display: flex;
+    }
 
 .off-day {
     background-color: red;
@@ -272,8 +272,8 @@ header nav ul li a, header nav ul li button {
     width: 80%;
     background-color: #212529;
     padding: 30px;
-    box-shadow: 0 0 50px #ccc;
-    border: 1px solid #FEF3EC;
+    box-shadow: 0 0 10px #ccc;
+    border: 1px solid #a19f9e;
 }
 
 .container_main .main_content_verlofaanvragen.title {
