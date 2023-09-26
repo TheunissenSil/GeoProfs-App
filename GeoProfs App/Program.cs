@@ -48,7 +48,7 @@ namespace GeoProfs_App
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                var roles = new[] { "Manager", "Werknemer" };
+                var roles = new[] { "Manager", "Werknemer", "ICT" };
 
                 foreach(var role in roles)
                 {

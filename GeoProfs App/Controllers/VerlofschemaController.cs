@@ -60,14 +60,32 @@ namespace GeoProfs_App.Controllers
 
             foreach (var user in users)
             {
-                var userVerlofaanvraag = verlofaanvragen.FirstOrDefault(v => v.UserId == user.Id && v.StartDate.Year == startDate.Year && v.StartDate.Month == startDate.Month);
+                var userVerlofaanvragen = verlofaanvragen
+                    .Where(v => v.UserId == user.Id && v.Status != "pending")
+                    .ToList();
 
-                if (userVerlofaanvraag != null)
+                if (userVerlofaanvragen.Count > 0)
                 {
-                    result.Add(userVerlofaanvraag);
+                    foreach (var verlofaanvraag in userVerlofaanvragen)
+                    {
+                        // Check if the leave request spans multiple months
+                        DateTime leaveStart = verlofaanvraag.StartDate;
+                        DateTime leaveEnd = verlofaanvraag.EndDate;
+
+                        while (leaveStart <= leaveEnd)
+                        {
+                            if (leaveStart.Month == startDate.Month && leaveStart.Year == startDate.Year)
+                            {
+                                result.Add(verlofaanvraag);
+                            }
+
+                            leaveStart = leaveStart.AddMonths(1);
+                        }
+                    }
                 }
                 else
                 {
+                    // If no leave request for this user, create an empty one for the current month
                     var emptyVerlofaanvraag = new Verlofaanvraag
                     {
                         User = user,
@@ -81,5 +99,6 @@ namespace GeoProfs_App.Controllers
 
             return result;
         }
+
     }
 }

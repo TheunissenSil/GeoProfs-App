@@ -52,24 +52,8 @@
     <div class="schema-bottom col-md-12">
         @foreach (var user in Model.Users)
         {
-            bool hasVerlofaanvraag;
-            var verlofaanvraag = Model.Verlofaanvragen.FirstOrDefault(v => v.User.Id == user.Id);
-            if (verlofaanvraag.UserId == null )
-            {
-                hasVerlofaanvraag = false;
-            } else
-            {
-                if (verlofaanvraag.Status == "pending")
-                {
-                    hasVerlofaanvraag = false;
-                }
-                else
-                {
-                    hasVerlofaanvraag = true;
-                }
-            }
-            
-            
+            bool hasVerlofaanvraag = false;
+
             <div class="row schema-user">
                 <div class="schema-left col-md-3">
                     <strong>@user.UserName</strong>
@@ -77,22 +61,32 @@
                 <div class="schema-right col-md-9">
                     @for (int day = 1; day <= DateTime.DaysInMonth(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month); day++)
                     {
-                        DateTime date = new DateTime(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month, day);
-                        bool isLeaveDay = hasVerlofaanvraag && verlofaanvraag.StartDate.Date <= date && date <= verlofaanvraag.EndDate.Date;
+                        DateTime currentDate = new DateTime(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month, day);
 
-                        Console.WriteLine(hasVerlofaanvraag);
+                        // Find all leave requests for the current user that include the currentDate
+                        var leaveRequests = Model.Verlofaanvragen
+                            .Where(verlof => verlof.User.Id == user.Id &&
+                                             verlof.Status != "pending" &&
+                                             currentDate >= verlof.StartDate.Date &&
+                                             currentDate <= verlof.EndDate.Date);
+
+                        bool isLeaveDay = leaveRequests.Any();
 
                         if (isLeaveDay)
                         {
-                            if (verlofaanvraag.Status == "Approved")
+                            // Determine the status for the currentDate based on leave requests
+                            var currentDateStatus = leaveRequests
+                                .Select(verlof => verlof.Status)
+                                .FirstOrDefault();
+
+                            if (currentDateStatus == "Approved")
                             {
                                 <div class="schema-date off-day"></div>
                             }
-                            else if (verlofaanvraag.Status == "ziek")
+                            else if (currentDateStatus == "ziek")
                             {
                                 <div class="schema-date sick-day"></div>
                             }
-
                         }
                         else
                         {
