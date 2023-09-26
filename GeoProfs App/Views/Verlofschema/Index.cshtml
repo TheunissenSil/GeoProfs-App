@@ -63,8 +63,6 @@
                     {
                         DateTime currentDate = new DateTime(Model.Verlofaanvraag.StartDate.Year, Model.Verlofaanvraag.StartDate.Month, day);
 
-<<<<<<< HEAD
-=======
                         // Find all leave requests for the current user that include the currentDate
                         var leaveRequests = Model.Verlofaanvragen
                             .Where(verlof => verlof.User.Id == user.Id &&
@@ -74,7 +72,6 @@
 
                         bool isLeaveDay = leaveRequests.Any();
 
->>>>>>> 8bc2528802d3d48a67b5a6af5e617da389c920ef
                         if (isLeaveDay)
                         {
                             // Determine the status for the currentDate based on leave requests
