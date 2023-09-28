@@ -8,4 +8,18 @@
     ViewData["Title"] = "ICT";
 }
 
-test
+<h1>Welcome to the ICT Dashboard</h1>
+
+<ul>
+    <li><a asp-controller="Ict" asp-action="UserList">User Management</a></li>
+
+    <li>
+        <form asp-controller="Ict" asp-action="UpdateWebsite" method="post">
+            <button type="submit">Update Website</button>
+        </form>
+    </li>
+    
+    <li><a asp-controller="Ict" asp-action="CreateUser">Create User</a></li>
+</ul>
+
+
