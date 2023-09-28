@@ -26,15 +26,17 @@ namespace GeoProfs_App.Controllers
                 // Path where the backup file will be saved.
                 string backupFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, backupFileName);
 
+                // Full path to mysqldump executable
+                string mysqldumpPath = @"C:\xampp\mysql\bin\mysqldump.exe"; 
+
                 // Use mysqldump to create a database backup.
                 using (var process = new Process())
                 {
-                    process.StartInfo.FileName = "mysqldump";
+                    process.StartInfo.FileName = mysqldumpPath; // Set the full path
                     process.StartInfo.Arguments = $"--host=localhost --port=3306 --user=root GeoProfs --result-file=\"{backupFilePath}\"";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.RedirectStandardOutput = true;
                     process.Start();
-
                     process.WaitForExit();
                 }
 
@@ -44,7 +46,8 @@ namespace GeoProfs_App.Controllers
             }
             catch (Exception ex)
             {
-                // Log the error (you can use a logging library like Serilog, NLog, or built-in logging)
+                // Log the error to the console
+                Console.WriteLine($"An error occurred during the backup process: {ex.ToString()}");
 
                 // Create an error message or object to pass to the error view
                 var errorModel = new ErrorViewModel
@@ -53,7 +56,7 @@ namespace GeoProfs_App.Controllers
                     ErrorMessage = ex.Message, // Pass the error message to the view
                 };
 
-                return View("Error", errorModel);
+                return View("Error", errorModel);   
             }
         }
     }
