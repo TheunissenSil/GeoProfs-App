@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GeoProfs_App.Data;
 using GeoProfs_App.Models;
 using Microsoft.AspNetCore.Identity;
+using Google.Protobuf.WellKnownTypes;
+
 namespace GeoProfs_App
 {
     public class Program
