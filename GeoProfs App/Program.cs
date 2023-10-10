@@ -4,6 +4,9 @@ using GeoProfs_App.Data;
 using GeoProfs_App.Models;
 using Microsoft.AspNetCore.Identity;
 using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace GeoProfs_App
 {
@@ -20,9 +23,28 @@ namespace GeoProfs_App
                 .AddEntityFrameworkStores<GeoProfs_AppContext>();
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            builder.Services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("nl-NL")
+                };
+                options.DefaultRequestCulture = new RequestCulture("nl-NL");
+                options.SupportedUICultures = supportedCultures;
+            });
+
 
             var app = builder.Build();
+            app.UseRequestLocalization();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

@@ -25,13 +25,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
+using Microsoft.Extensions.Localization;
 
 namespace GeoProfs_App.Controllers
 {
     [Authorize(Roles = "ICT")]
     public class IctController : Controller
     {
-        
+        private readonly IStringLocalizer<IctController> _localizer;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
@@ -46,7 +47,8 @@ namespace GeoProfs_App.Controllers
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             RoleManager<IdentityRole> roleManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IStringLocalizer<IctController> localizer)
         {
 
             _userManager = userManager;
@@ -56,6 +58,7 @@ namespace GeoProfs_App.Controllers
             _logger = logger;
             _roleManager = roleManager;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
         [BindProperty]
         public string ReturnUrl { get; set; }
@@ -63,6 +66,7 @@ namespace GeoProfs_App.Controllers
 
         public IActionResult Index()
         {
+            var localizedTitle = _localizer["Welcome"];
             return View();
         }
 

@@ -1434,3 +1434,13 @@ C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\G
 C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\GeoProfs App.pdb
 C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\GeoProfs App.genruntimeconfig.cache
 C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\ref\GeoProfs App.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\bin\Debug\net7.0\en-US\GeoProfs App.resources.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\bin\Debug\net7.0\nl-NL\GeoProfs App.resources.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\GeoProfs_App.Resources.Views.Ict.Index.en-US.resources
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\GeoProfs_App.Resources.Views.Ict.Index.nl-NL.resources
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\GeoProfs App.csproj.GenerateResource.cache
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\en-US\GeoProfs App.resources.dll
+C:\Users\julia\OneDrive\Bureaublad\Documents\school\Leerjaar 2\C#\GeoProfs-App\GeoProfs App\obj\Debug\net7.0\nl-NL\GeoProfs App.resources.dll
