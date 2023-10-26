@@ -5,8 +5,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using OfficeOpenXml;
+using System.Data;
+using System.IO;
+using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient.Server;
+using MySql.Data.MySqlClient;
 
 namespace GeoProfs_App.Controllers
 {
@@ -15,6 +22,8 @@ namespace GeoProfs_App.Controllers
     {
         private readonly GeoProfs_AppContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
+
+        private readonly string _connectionString = "Server=localhost;Port=3306;Database=GeoProfs;Uid=root;";
 
         public ManagementController(GeoProfs_AppContext dbContext, UserManager<ApplicationUser> userManager)
         {
@@ -136,5 +145,97 @@ namespace GeoProfs_App.Controllers
 
             return NoContent();
         }
+
+        // Make rapport
+        public IActionResult DownloadRapport()
+        {
+            // Fetch data from SQL table (Verlofaanvragen)
+            DataTable dataTable = GetDataFromSQL();
+
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                // Create an Excel package
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Rapport");
+
+                    // Create a new DataTable with desired column order
+                    DataTable newDataTable = new DataTable();
+                    newDataTable.Columns.Add("UserName");
+                    newDataTable.Columns.Add("Reason");
+                    newDataTable.Columns.Add("StartDate");
+                    newDataTable.Columns.Add("EndDate");
+                    newDataTable.Columns.Add("Status");
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        newDataTable.Rows.Add(
+                            row["UserName"],
+                            row["Reason"],
+                            row["StartDate"],
+                            row["EndDate"],
+                            row["Status"]
+                        );
+                    }
+
+                    // Load the new DataTable into the Excel worksheet
+                    worksheet.Cells["A1"].LoadFromDataTable(newDataTable, true);
+
+                    using (var range = worksheet.Cells[2, 3, newDataTable.Rows.Count + 1, 4]) 
+                    {
+                        range.Style.Numberformat.Format = "yyyy-MM-dd"; 
+                    }
+
+                    worksheet.Cells.AutoFitColumns();
+                    worksheet.Cells["A1:E1"].Style.Font.Bold = true;
+
+                    // Set content type and disposition for the response
+                    Response.Headers.Add("Content-Disposition", "attachment; filename=Rapport.xlsx");
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                    // Write the Excel package to the response stream
+                    Response.Body.Write(package.GetAsByteArray());
+                }
+            }
+            else
+            {
+                return Content("No data to export." + dataTable.Rows.Count);
+            }
+
+            return new EmptyResult();
+        }
+
+        private DataTable GetDataFromSQL()
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))  
+                {
+                    connection.Open();
+
+                    // SQL query 
+                    string query = "SELECT va.*, u.UserName AS UserName " +
+                        "FROM verlofaanvragen va " +
+                        "INNER JOIN aspnetusers u ON va.UserId = u.Id";
+
+
+                    using (var cmd = new MySqlCommand(query, connection))  
+                    using (var adapter = new MySqlDataAdapter(cmd)) 
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return dataTable;
+            }
+
+            return dataTable;
+        }
+
     }
 }

@@ -20,19 +20,15 @@ namespace GeoProfs_App.Controllers
             {
                 string backupFileName = "GeoProfs_Backup_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".sql";
 
-                // Replace the following connection string with your MySQL database connection string.
                 string connectionString = "Server=localhost;Port=3306;Database=GeoProfs;Uid=root;";
 
-                // Path where the backup file will be saved.
                 string backupFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, backupFileName);
 
-                // Full path to mysqldump executable
                 string mysqldumpPath = @"C:\xampp\mysql\bin\mysqldump.exe"; 
 
-                // Use mysqldump to create a database backup.
                 using (var process = new Process())
                 {
-                    process.StartInfo.FileName = mysqldumpPath; // Set the full path
+                    process.StartInfo.FileName = mysqldumpPath; 
                     process.StartInfo.Arguments = $"--host=localhost --port=3306 --user=root GeoProfs --result-file=\"{backupFilePath}\"";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.RedirectStandardOutput = true;
@@ -49,11 +45,10 @@ namespace GeoProfs_App.Controllers
                 // Log the error to the console
                 Console.WriteLine($"An error occurred during the backup process: {ex.ToString()}");
 
-                // Create an error message or object to pass to the error view
                 var errorModel = new ErrorViewModel
                 {
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                    ErrorMessage = ex.Message, // Pass the error message to the view
+                    ErrorMessage = ex.Message,
                 };
 
                 return View("Error", errorModel);   
