@@ -28,7 +28,7 @@
             </div>
         }
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <form class="col-md-5" id="verlofaanvraagForm" method="post" action="Verlofaanvragen/Add">
+        <form class="col-md-5" id="verlofaanvraagForm" method="post" action="Verlofaanvragen/Add" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Reden:</label>
                 <select class="form-select" asp-for="Verlofaanvraag.Reason" id="reden">
@@ -36,6 +36,10 @@
                     <option selected value="Vakantie">Vakantie</option>
                     <option value="Anders">Anders</option>
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="fileUpload" class="form-label">Eventuele bijlage?:</label>
+                <input type="file" class="form-control" id="fileUpload" name="FileUpload">
             </div>
             <div id="andersDiv" class="mb-3">
                 <label for="anders" class="form-label">Anders</label>

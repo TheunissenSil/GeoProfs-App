@@ -10,6 +10,5 @@
         public DateTime EndDate { get; set; }
         public string Status { get; set; }
         public ApplicationUser User { get; set; }
-
     }
 }

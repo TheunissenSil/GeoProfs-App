@@ -1,4 +1,6 @@
-﻿namespace GeoProfs_App.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GeoProfs_App.Models
 {
     public class VerlofaanvraagViewModel
     {

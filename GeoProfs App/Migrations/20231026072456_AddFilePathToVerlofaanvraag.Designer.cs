@@ -3,6 +3,7 @@ using System;
 using GeoProfs_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoProfs_App.Migrations
 {
     [DbContext(typeof(GeoProfs_AppContext))]
-    partial class GeoProfs_AppContextModelSnapshot : ModelSnapshot
+    [Migration("20231026072456_AddFilePathToVerlofaanvraag")]
+    partial class AddFilePathToVerlofaanvraag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +125,7 @@ namespace GeoProfs_App.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Verlofaanvragen", (string)null);
+                    b.ToTable("Verlofaanvragen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

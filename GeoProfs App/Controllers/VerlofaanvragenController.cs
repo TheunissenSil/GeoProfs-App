@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace GeoProfs_App.Controllers
 {
@@ -36,7 +37,7 @@ namespace GeoProfs_App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(VerlofaanvraagViewModel viewModel)
+        public async Task<IActionResult> Add(VerlofaanvraagViewModel viewModel, IFormFile FileUpload)
         {
             // Check if userId exists
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -84,8 +85,10 @@ namespace GeoProfs_App.Controllers
                 status = "ziek";
             }
 
+         
+
             // Create a new verlofaanvraag
-            var verlofaanvraag = new Verlofaanvraag()
+            var verlofaanvraag = new Verlofaanvraag
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
