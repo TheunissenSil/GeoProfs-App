@@ -1,0 +1,51 @@
+﻿@model List<ApplicationUser>
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+
+<h1>Gebruikerslijst</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Gebruikersnaam</th>
+            <th>Email</th>
+            <th>Huidige Rol</th>
+            <th>Verander Rol</th>
+        </tr>
+    </thead>
+
+<tbody>
+   @foreach (var user in Model)
+   {
+       <tr>
+           <td>@user.UserName</td>
+           <td>@user.Email</td>
+           <td>
+               @{
+                   var roles = await UserManager.GetRolesAsync(user);
+                   <span>@string.Join(", ", roles)</span>
+               }
+           </td>
+           <td>
+               <form asp-controller="Ict" asp-action="ChangeUserRole" method="post">
+                   <input type="hidden" name="userId" value="@user.Id" />
+                   <select name="newRole">
+                       <option value="Werknemer">Werknemer</option>
+                       <option value="Manager">Manager</option>
+                       <option value="ICT">ICT</option>
+                   </select>
+                   <button type="submit">Verander Rol</button>
+               </form>
+           </td>
+       </tr>
+   }
+</tbody>
+
+
+</table>
