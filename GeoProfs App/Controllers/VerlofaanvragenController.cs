@@ -25,8 +25,14 @@ namespace GeoProfs_App.Controllers
 
         // Lijst van verlofaanvragen en view retun
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null && user.verlofsaldo <= 5 && user.verlofsaldo > 0)
+            {
+                TempData["ReminderMessage"] = "Vergeet niet uw verlofsaldo te gebruiken!";
+            }
+
             var viewModel = new VerlofaanvraagViewModel
             {
                 Verlofaanvragen = mvcGeoProfs_AppContext.Verlofaanvragen.OrderBy(v => v.StartDate).ToList(),
